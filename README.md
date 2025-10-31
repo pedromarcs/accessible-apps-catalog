@@ -19,6 +19,12 @@ O site busca oferecer uma experiência simples, moderna e acessível a todos os 
 
 ---
 
+## ✅ Acompanhe o Progresso do Projeto
+
+> 🧭 **Progresso do Projeto:**  
+> Acompanhe e marque as tarefas clicando [neste checklist](https://github.com/Pedro0oficial/accessible-apps-catalog/issues/1).
+
+---
 ## 👥 Integrantes da Equipe (GitHub)
 
 | 🧑 Nome | 💼 Função | 🌐 GitHub |
@@ -46,3 +52,4 @@ O site busca oferecer uma experiência simples, moderna e acessível a todos os 
 ---
 
 💙 **Tecnologia acessível é tecnologia para todos.**
+Adiciona link para checklist (Issue) no README
