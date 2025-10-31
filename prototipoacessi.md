@@ -1,17 +1,45 @@
-# 🧠 Projeto: Catálogo de Apps Acessíveis
+# 🧠 Catálogo de Apps Acessíveis
 
-Este repositório contém as etapas do projeto desenvolvido pela equipe.
-
-## 🎨 Etapa 1 — Protótipo no Figma
-
-O protótipo inicial foi criado no Figma e pode ser acessado pelo link abaixo:
-
-👉 [Acesse o projeto no Figma](https://www.figma.com/proto/KPk2DX5OW9qQp6sdJM7sxG/AcessiAp?node-id=0-1&t=MkFjGlS4EytmeM1Q-1)
+Projeto desenvolvido para o curso de **FRONT-END FRAMEWORK**, com foco em **acessibilidade digital** e **design inclusivo**.
 
 ---
 
-## 👥 Integrantes da Equipe
-- Nome 1
-- Nome 2
-- Nome 3
+## 🎨 Etapa 1 — Protótipo no Figma
 
+O protótipo inicial foi criado no Figma e representa a estrutura visual e de navegação do site.
+
+👉 **[Acesse o projeto no Figma clicando aqui](https://www.figma.com/proto/KPk2DX5OW9qQp6sdJM7sxG/AcessiAp?node-id=0-1&t=MkFjGlS4EytmeM1Q-1)**
+
+---
+
+## 💡 Objetivo do Projeto
+
+Criar um **catálogo de aplicativos acessíveis**, que ajude usuários a descobrir apps voltados à inclusão, acessibilidade e bem-estar digital.  
+O site busca oferecer uma experiência **simples, moderna e acessível a todos os públicos**.
+
+---
+
+## 👥 Integrantes da Equipe (GitHub)
+
+| 🧑 Nome | 💼 Função | 🌐 GitHub |
+|----------|------------|-----------|
+| **Pedro Marcos** | Designer / Desenvolvedor Front-end | [@PedroMarcos](https://github.com/SEU-USUARIO) |
+| **Caio Vinicius** | Designer / Desenvolvedor Front-end | [@Integrante2](https://github.com/SEU-USUARIO2) |
+| **aldieres pinheiro** | Designer / Desenvolvedor Front-end | [@Integrante3](https://github.com/SEU-USUARIO3) |
+
+---
+
+## 📝 Membros da Equipe (Nome + Matrícula)
+
+| 🧑 Nome | 🆔 Matrícula |
+|----------|------------|
+| Pedro Marcos de Lima Macedo | 01822171  |
+| Caio Vinícius de Góis Macêdo | 01810583 |
+| aldieres pinheiro da costa filho | 01717429 |
+| aldieres pinheiro da costa filho | 01717429 |
+| aldieres pinheiro da costa filho | 01717429 |
+| aldieres pinheiro da costa filho | 01717429 |
+
+---
+
+🖤 **Tecnologia acessível é tecnologia para todos.**
