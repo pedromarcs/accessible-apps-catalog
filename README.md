@@ -30,7 +30,7 @@ O site busca oferecer uma experiência simples, moderna e acessível a todos os 
 | 🧑 Nome | 💼 Função | 🌐 GitHub |
 |----------|------------|-----------|
 | **Pedro Marcos** | Designer / Desenvolvedor Front-end | [@pedromarcs](https://github.com/pedromarcs) | |
-| **Caio Vinicius** | Designer / Desenvolvedor Front-end | [@Integrante2](https://github.com/SEU-USUARIO2) |
+| **Caio Vinicius** | Designer / Desenvolvedor Front-end | [@caiovini100](https://github.com/caiovini100) |
 | **Aldieres Pinheiro** | Designer / Desenvolvedor Front-end | [@Integrante3](https://github.com/SEU-USUARIO3) |
 | **Rick Marthy** | Designer / Desenvolvedor Front-end | [@Integrante3](https://github.com/SEU-USUARIO3) |
 | **Antonio de Lisboa** | Designer / Desenvolvedor Front-end | [@Integrante3](https://github.com/SEU-USUARIO3) |
