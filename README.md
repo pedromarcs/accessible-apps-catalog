@@ -19,24 +19,16 @@ O site busca oferecer uma experiência simples, moderna e acessível a todos os 
 
 ---
 
-## ✅ Objetivos / Tarefas do Projeto
-
-- [x] Criar protótipo inicial no Figma
-- [ ] Listar aplicativos acessíveis por categoria
-- [ ] Criar estrutura HTML/CSS do site
-- [ ] Adicionar interatividade com JavaScript
-- [ ] Testar protótipo com usuários
-- [ ] Finalizar documentação e README
-
----
-
 ## 👥 Integrantes da Equipe (GitHub)
 
 | 🧑 Nome | 💼 Função | 🌐 GitHub |
 |----------|------------|-----------|
-| **Pedro Marcos** | Designer / Documentação | [@PedroMarcos](https://github.com/SEU-USUARIO) |
-| **Integrante 2** | Desenvolvedor Front-end | [@Integrante2](https://github.com/SEU-USUARIO2) |
-| **Integrante 3** | Gerente do Projeto | [@Integrante3](https://github.com/SEU-USUARIO3) |
+| **Pedro Marcos** | Designer / Desenvolvedor Front-end | [@PedroMarcos](https://github.com/SEU-USUARIO) |
+| **Caio Vinicius** | Designer / Desenvolvedor Front-end | [@Integrante2](https://github.com/SEU-USUARIO2) |
+| **Aldieres Pinheiro** | Designer / Desenvolvedor Front-end | [@Integrante3](https://github.com/SEU-USUARIO3) |
+| **Rick Marthy** | Designer / Desenvolvedor Front-end | [@Integrante3](https://github.com/SEU-USUARIO3) |
+| **Antonio de Lisboa** | Designer / Desenvolvedor Front-end | [@Integrante3](https://github.com/SEU-USUARIO3) |
+| **aaaaaaaa** | Designer / Desenvolvedor Front-end | [@Integrante3](https://github.com/SEU-USUARIO3) |
 
 ---
 
@@ -44,11 +36,13 @@ O site busca oferecer uma experiência simples, moderna e acessível a todos os 
 
 | 🧑 Nome | 🆔 Matrícula |
 |----------|------------|
-| Pedro Marcos | 123456 |
-| Integrante 2 | 234567 |
-| Integrante 3 | 345678 |
+| Pedro Marcos de Lima Macedo | 01822171 |
+| Caio Vinícius de Góis Macêdo | 01810583 |
+| Rick Marthy Weslley Leite de Farias  | 01819678 |
+| Antonio de Lisboa Pontes Neto  | 01783716 |
+| aldieres pinheiro da costa filho | 01717429 |]
+| aldieres pinheiro da costa filho | 01717429 |
 
 ---
 
-✨ *Feito com dedicação e foco na inclusão digital.*  
-🖤 **Tecnologia acessível é tecnologia para todos.**
+💙 **Tecnologia acessível é tecnologia para todos.**
