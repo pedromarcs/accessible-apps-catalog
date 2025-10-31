@@ -6,7 +6,7 @@ Este repositório contém as etapas do projeto desenvolvido pela equipe.
 
 O protótipo inicial foi criado no Figma e pode ser acessado pelo link abaixo:
 
-👉 [Acesse o projeto no Figma](https://www.figma.com/design/KPk2DX5OW9qQp6sdJM7sxG/AcessiAp?node-id=0-1&t=MkFjGlS4EytmeM1Q-1)
+👉 [Acesse o projeto no Figma]([https://www.figma.com/design/KPk2DX5OW9qQp6sdJM7sxG/AcessiAp?node-id=0-1&t=MkFjGlS4EytmeM1Q-1](https://www.figma.com/proto/KPk2DX5OW9qQp6sdJM7sxG/AcessiAp?node-id=0-1&t=MkFjGlS4EytmeM1Q-1))
 
 ---
 
@@ -17,3 +17,4 @@ O protótipo inicial foi criado no Figma e pode ser acessado pelo link abaixo:
 - Nome 3
 - Nome 3
 - Nome 3
+
