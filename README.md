@@ -47,9 +47,8 @@ O site busca oferecer uma experiência simples, moderna e acessível a todos os 
 | Rick Marthy Weslley Leite de Farias  | 01819678 |
 | Antonio de Lisboa Pontes Neto  | 01783716 |
 | aldieres pinheiro da costa filho | 01717429 |]
-| aldieres pinheiro da costa filho | 01717429 |
+| Renato Santos de Sales | 01854993 |
 
 ---
 
 💙 **Tecnologia acessível é tecnologia para todos.**
-Adiciona link para checklist (Issue) no README
