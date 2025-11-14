@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧠 Catálogo de Apps Acessíveis
 
-## Getting Started
+Projeto desenvolvido para o curso de **Desenvolvimento Web**, com foco em **acessibilidade digital** e **design inclusivo**.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🎨 Etapa 1 — Protótipo no Figma
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+O protótipo inicial foi criado no Figma e representa a estrutura visual e de navegação do site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+👉 **[Acesse o projeto no Figma clicando aqui](https://www.figma.com/proto/KPk2DX5OW9qQp6sdJM7sxG/AcessiAp?node-id=0-1&t=MkFjGlS4EytmeM1Q-1)**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 💡 Objetivo do Projeto
 
-To learn more about Next.js, take a look at the following resources:
+Criar um catálogo de aplicativos acessíveis, que ajude usuários a descobrir apps voltados à inclusão, acessibilidade e bem-estar digital.  
+O site busca oferecer uma experiência simples, moderna e acessível a todos os públicos.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## ✅ Acompanhe o Progresso do Projeto
 
-## Deploy on Vercel
+> 🧭 **Progresso do Projeto:**  
+> Acompanhe e marque as tarefas clicando [neste checklist](https://github.com/Pedro0oficial/accessible-apps-catalog/issues/1).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
+## 👥 Integrantes da Equipe (GitHub)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| 🧑 Nome | 💼 Função | 🌐 GitHub |
+|----------|------------|-----------|
+| **Pedro Marcos** | Designer / Desenvolvedor Front-end | [@pedromarcs](https://github.com/pedromarcs) | |
+| **Caio Vinicius** | Designer / Desenvolvedor Front-end | [@caiovini100](https://github.com/caiovini100) |
+| **Aldieres Pinheiro** | Designer / Desenvolvedor Front-end | [@Integrante3](https://github.com/SEU-USUARIO3) |
+| **Rick Marthy** | Designer / Desenvolvedor Front-end | [@Integrante3](https://github.com/SEU-USUARIO3) |
+| **Antonio de Lisboa** | Designer / Desenvolvedor Front-end | [@Integrante3](https://github.com/SEU-USUARIO3) |
+| **Renato Santos** | Designer / Desenvolvedor Front-end | [@Integrante3](https://github.com/SEU-USUARIO3) |
+
+---
+
+## 📝 Membros da Equipe (Nome + Matrícula)
+
+| 🧑 Nome | 🆔 Matrícula |
+|----------|------------|
+| Pedro Marcos de Lima Macedo | 01822171 |
+| Caio Vinícius de Góis Macêdo | 01810583 |
+| Rick Marthy Weslley Leite de Farias  | 01819678 |
+| Antonio de Lisboa Pontes Neto  | 01783716 |
+| aldieres pinheiro da costa filho | 01717429 |]
+| Renato Santos de Sales | 01854993 |
+
+---
+
+💙 **Tecnologia acessível é tecnologia para todos.**
