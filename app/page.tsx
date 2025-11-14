@@ -20,7 +20,8 @@ const categorias = [
 ];
 
 const appsPopulares = [
-  { name: 'Khan Academy', icon: 'popular-1.png' },
+  // AQUI: O primeiro app agora usa 'teste.png'
+  { name: 'Khan Academy', icon: 'teste.png' }, 
   { name: 'Matematica Simples', icon: 'popular-2.png' },
   { name: 'Estuda.com', icon: 'popular-3.png' },
   { name: 'Color by Number', icon: 'popular-4.png' },
@@ -46,6 +47,7 @@ const ItemCard = ({ name, icon, href, isCategory = false }: { name: string, icon
                 ${isCategory ? 'text-white' : 'text-gray-800'}`}
   >
     <div className={`text-4xl mb-1 ${isCategory ? 'text-white' : 'text-indigo-600'}`}>
+      {/* Para categorias, mostra o emoji; para apps, mostra a imagem */}
       {isCategory ? icon : <img src={`/images/${icon}`} alt={name} className="w-12 h-12 rounded-lg" />}
     </div>
     <span className={`text-sm font-medium text-center ${isCategory ? 'text-white' : 'text-gray-600'}`}>{name}</span>
@@ -57,7 +59,7 @@ const AppSection = ({ title, apps }: { title: string, apps: typeof appsPopulares
   <section className="bg-white p-6 rounded-2xl shadow-lg mt-8 border border-gray-200">
     <div className="flex justify-between items-center mb-4">
       <h2 className="text-2xl font-bold text-gray-800 flex items-center">
-        <ArrowRight className="w-5 h-5 mr-2 text-indigo-600 transform rotate-180" />
+        <ArrowRight className="w-5 h-5 mr-2 text-indigo-600 transform rotate-180" /> 
         {title}
       </h2>
       <a href="#" className="text-indigo-600 font-semibold hover:text-indigo-700 flex items-center">
@@ -90,12 +92,12 @@ export default function HomePage() {
       <header className="bg-indigo-600 text-white shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <div className="flex items-center">
+            {/* Botão de Login/Cadastro */}
             <a href="/login" className="bg-white/20 hover:bg-white/30 text-white font-semibold py-1 px-4 rounded-full transition duration-200 text-sm mr-6">
               Login
             </a>
             <div className="flex items-center space-x-2">
-              {/* Logo e Nome do Site */}
-              <img src="/logo-acessiap.png" alt="Logo AcessiAp" className="w-8 h-8"/> 
+              {/* O logo agora é apenas texto, sem a imagem teste.png */}
               <span className="text-xl font-extrabold tracking-wider">AcessiAp</span>
             </div>
           </div>
@@ -118,10 +120,10 @@ export default function HomePage() {
             />
           </div>
 
-          {/* Ícones de Navegação */}
+          {/* Ícones de Navegação (Perfil, Favoritos, Configurações) */}
           <nav className="flex space-x-6 text-gray-700">
             {navItems.map((item) => {
-              const IconComponent = item.icon; // Componente do ícone
+              const IconComponent = item.icon; 
               return (
                 <a key={item.name} href={item.href} className="flex flex-col items-center hover:text-indigo-600 transition duration-200">
                   <IconComponent className="w-6 h-6" />
