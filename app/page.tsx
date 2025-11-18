@@ -1,5 +1,3 @@
-// app/page.tsx
-import { link } from 'fs';
 import { ArrowRight, Search, User, Heart, Settings } from 'lucide-react';
 
 // --- Dados Mockados para Simular o Conteúdo ---
@@ -50,16 +48,18 @@ const ItemCard = ({
   href: string;
   isCategory?: boolean;
 }) => (
+  // Usando 'href' para o link
   <a
     href={href}
     className={`flex flex-col items-center justify-center p-4 rounded-xl transition duration-200
-                ${isCategory ? "bg-indigo-700/50 hover:bg-indigo-700/70" : "hover:bg-gray-100"}
-                ${isCategory ? "text-white" : "text-gray-800"}`}
+               ${isCategory ? "bg-indigo-700/50 hover:bg-indigo-700/70" : "hover:bg-gray-100"}
+               ${isCategory ? "text-white" : "text-gray-800"}`}
   >
     <div className={`text-4xl mb-1 ${isCategory ? "text-white" : "text-indigo-600"}`}>
       {isCategory ? icon : (
         <img
-          src={`/images/${icon}`}
+          // Ajustado para garantir que o path da imagem esteja correto
+          src={`/images/${icon}`} 
           alt={name}
           className="w-12 h-12 rounded-lg object-cover"
         />
@@ -96,14 +96,26 @@ const AppSection = ({
     </div>
 
     <div className="grid grid-cols-5 gap-4">
-      {apps.map((app) => (
-        <ItemCard
-          key={app.name}
-          name={app.name}
-          icon={app.icon}
-          href={`/app/${app.name.toLowerCase().replace(/\s/g, "-")}`}
-        />
-      ))}
+      {apps.map((app) => {
+        // --- LÓGICA DE REDIRECIONAMENTO ---
+        // Se o nome for "Khan Academy", usa a rota específica, senão, usa a rota genérica.
+        const appHref =
+  app.name === 'Khan Academy'
+    ? '/khan-academy'
+    : app.name === 'Color Blind Pal'
+    ? '/color-blind'
+    
+    : `/app/${app.name.toLowerCase().replace(/\s/g, "-")}`;
+
+        return (
+          <ItemCard
+            key={app.name}
+            name={app.name}
+            icon={app.icon}
+            href={appHref} // Usa a rota definida
+          />
+        );
+      })}
     </div>
   </section>
 );
@@ -176,6 +188,7 @@ export default function HomePage() {
 
         {/* 5. Novos */}
         <AppSection title="Novos" apps={appsNovos} />
+
 
         {/* 6. NOVA ABA: Avaliação + Contato */}
         <section className="grid grid-cols-2 gap-6 mt-12">
@@ -250,7 +263,7 @@ export default function HomePage() {
   <div className="grid grid-cols-5 gap-4">
 
     {/* Item 1 */}
-    <a className="flex flex-col items-center hover:bg-gray-100 p-4 rounded-xl transition">
+    <a href="/khan-academy" className="flex flex-col items-center hover:bg-gray-100 p-4 rounded-xl transition">
       <img src="/images/khan.png" className="w-14 h-14 rounded-lg object-cover mb-2" />
       <span className="text-sm text-gray-700 font-medium text-center">Khan Academy</span>
     </a>
@@ -262,7 +275,7 @@ export default function HomePage() {
     </a>
 
     {/* Item 3 */}
-    <a className="flex flex-col items-center hover:bg-gray-100 p-4 rounded-xl transition">
+    <a href="/color-blind" className="flex flex-col items-center hover:bg-gray-100 p-4 rounded-xl transition">
       <img src="/images/color.png" className="w-14 h-14 rounded-lg object-cover mb-2" />
       <span className="text-sm text-gray-700 font-medium text-center">Color by Number</span>
     </a>
@@ -287,5 +300,4 @@ export default function HomePage() {
 
       </div>
     </div>
-  );
-}
+  );}
