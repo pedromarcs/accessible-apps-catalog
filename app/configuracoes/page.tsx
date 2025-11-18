@@ -1,167 +1,283 @@
 "use client";
 import React, { useState, useCallback } from 'react';
+import Link from 'next/link';
+// CORREÇÃO: Adicionada ArrowRight. Substituída Wheelchair por Accessibility.
+import { Bell, Settings, Moon, Sun, Monitor, Languages, ChevronDown, Lock, Database, Info, Trash2, Shield, AlertTriangle, ArrowRight, Accessibility } from 'lucide-react';
 
-// =================================================================
-// COMPONENTES AUXILIARES (Toggle Switch)
-// =================================================================
+// --- Dados de Simulação ---
 
-const ToggleSwitch: React.FC<{ label: string, description: string, checked: boolean, onChange: () => void }> = 
-  ({ label, description, checked, onChange }) => (
-  <div className="flex items-center justify-between py-3 border-b border-gray-100 last:border-b-0">
-    <div className="pr-4">
-      <h3 className="text-gray-800 font-medium">{label}</h3>
-      <p className="text-sm text-gray-500 mt-1">{description}</p>
+const temas = [
+  { value: 'light', label: 'Claro', icon: Sun },
+  { value: 'dark', label: 'Escuro', icon: Moon },
+  { value: 'system', label: 'Sistema', icon: Monitor },
+];
+
+const idiomas = [
+  { value: 'pt', label: 'Português (Brasil)' },
+  { value: 'en', label: 'Inglês (EUA)' },
+  { value: 'es', label: 'Espanhol' },
+  { value: 'fr', label: 'Francês' },
+  { value: 'de', label: 'Alemão' },
+  { value: 'it', label: 'Italiano' },
+  { value: 'ja', label: 'Japonês' },
+  { value: 'zh', label: 'Chinês (Mandarin)' },
+  { value: 'ru', label: 'Russo' },
+  { value: 'ar', label: 'Árabe' },
+];
+
+// --- Componentes Reutilizáveis ---
+
+// Componente de Toggle (Interruptor)
+const ToggleOption: React.FC<{ label: string, description: string, id: string, checked: boolean, onChange: (checked: boolean) => void }> = ({ label, description, id, checked, onChange }) => (
+  <div className="flex justify-between items-center py-3 border-b last:border-b-0">
+    {/* CORREÇÃO: flex-grow substituído por grow */}
+    <div className="grow pr-4">
+      <h3 className="font-semibold text-gray-800">{label}</h3>
+      <p className="text-sm text-gray-500 mt-0.5">{description}</p>
     </div>
-    <label className="relative inline-flex items-center cursor-pointer">
-      <input type="checkbox" checked={checked} onChange={onChange} className="sr-only peer" />
-      {/* CORREÇÃO APLICADA AQUI: after:top-[2px] -> after:top-0.5 E after:start-[2px] -> after:start-0.5 */}
-      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-0.5 after:bg-white after:border after:border-gray-300 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+    <label htmlFor={id} className="relative inline-flex items-center cursor-pointer shrink-0">
+      <input 
+        type="checkbox" 
+        id={id} 
+        checked={checked} 
+        onChange={(e) => onChange(e.target.checked)} 
+        className="sr-only peer" 
+      />
+      {/* CORREÇÃO: Usando classes canônicas do Tailwind (top-0.5 e left-0.5) */}
+      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-300 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border after:border-gray-300 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
     </label>
   </div>
 );
 
-// =================================================================
-// COMPONENTE PRINCIPAL (Tela de Configurações)
-// =================================================================
+// Componente de Dropdown (para Tema e Idioma)
+const DropdownOption: React.FC<{ label: string, options: typeof temas | typeof idiomas, selected: string, onSelect: (value: string) => void }> = ({ label, options, selected, onSelect }) => (
+  <div className="py-3 border-b last:border-b-0">
+    <label className="font-semibold text-gray-800 block mb-2">{label}</label>
+    <div className="relative">
+      <select
+        value={selected}
+        onChange={(e) => onSelect(e.target.value)}
+        className="w-full appearance-none bg-gray-100 border border-gray-300 text-gray-800 py-2.5 px-4 pr-10 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-150"
+      >
+        {options.map((opt) => (
+          <option key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
+        ))}
+      </select>
+      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none" />
+    </div>
+  </div>
+);
 
-const SettingsScreen: React.FC = () => {
-  const [settings, setSettings] = useState({
-    notificacoesPush: true,
-    alertasEmail: false,
-    altoContraste: false,
-    textoGrande: false,
-    leitorTela: true,
-    tamanhoFonte: 50,
-  });
+// Componente de Ação (botões sem toggle)
+const ActionOption: React.FC<{ label: string, icon: React.ReactNode, onClick: () => void, color?: string }> = ({ label, icon, onClick, color = 'text-gray-800' }) => (
+  <button
+    onClick={onClick}
+    className={`w-full flex items-center justify-between py-3 border-b last:border-b-0 text-left group hover:bg-gray-50 transition duration-150 rounded-lg -mx-2 px-2`}
+  >
+    <div className="flex items-center space-x-3">
+        <span className={`${color}`}>{icon}</span>
+        <span className={`font-semibold ${color}`}>{label}</span>
+    </div>
+    <span className="text-gray-400 group-hover:text-indigo-600 transition">
+        {/* CORREÇÃO: ArrowRight está importado agora */}
+        <ArrowRight className="w-5 h-5 rotate-180" />
+    </span>
+  </button>
+);
 
-  const handleToggle = useCallback((key: keyof typeof settings) => {
-    setSettings(prev => ({
-      ...prev,
-      [key]: !prev[key],
-    }));
-  }, []);
+// Componente de Seção (Caixa Branca com Título e Ícone)
+const SettingsSection: React.FC<{ title: string, icon: React.ReactNode, children: React.ReactNode }> = ({ title, icon, children }) => (
+  <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200 mb-8">
+    <div className="flex items-center mb-4 pb-4 border-b">
+      <span className="text-2xl text-indigo-600 mr-3">{icon}</span>
+      <h2 className="text-xl font-bold text-gray-800">{title}</h2>
+    </div>
+    <div className="space-y-3">
+      {children}
+    </div>
+  </div>
+);
 
-  const handleFontSizeChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setSettings(prev => ({
-      ...prev,
-      tamanhoFonte: parseInt(e.target.value, 10),
-    }));
-  }, []);
+// --- Componente Principal ---
 
-  const handleSaveSettings = useCallback(() => {
-    console.log("Configurações salvas:", settings);
-    alert("Configurações salvas (simulado)! Veja o console para o estado.");
-  }, [settings]);
+export default function ConfiguracoesPage() {
+  // Estados para gerenciar as configurações
+  const [pushEnabled, setPushEnabled] = useState(true);
+  const [emailEnabled, setEmailEnabled] = useState(false);
+  const [contrastEnabled, setContrastEnabled] = useState(false);
+  const [largeTextEnabled, setLargeTextEnabled] = useState(false);
+  const [readerEnabled, setReaderEnabled] = useState(true);
+  const [fontSize, setFontSize] = useState(50); // 0 a 100
+  const [selectedTheme, setSelectedTheme] = useState('system');
+  const [selectedLanguage, setSelectedLanguage] = useState('pt');
+  const [bioAuthEnabled, setBioAuthEnabled] = useState(false);
+
+
+  // Funções de Simulação de Ação
+  const clearCache = useCallback(() => alert("Cache limpo! (Simulação)"), []);
+  const logout = useCallback(() => alert("Usuário desconectado! (Simulação)"), []);
 
 
   return (
-    <div className="bg-gray-100 min-h-screen font-sans">
-      
+    <div className="bg-gray-50 min-h-screen">
+
       {/* Cabeçalho */}
-      <header className="bg-blue-600 shadow-lg sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center text-white">
-          <a href="#" className="flex items-center space-x-2 text-sm md:text-base hover:text-blue-200 transition font-medium">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
-            <span>Voltar ao catálogo</span>
-          </a>
-          <h1 className="text-xl font-semibold flex items-center space-x-2">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.298.818 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-            <span>Configurações</span>
-          </h1>
-          <div className="w-5 h-5 opacity-0"></div> 
+      <header className="bg-indigo-600 text-white shadow-lg">
+        <div className="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
+          
+          {/* Botão de Voltar Funcional */}
+          <Link href="/" className="flex items-center text-sm font-medium hover:text-indigo-200 transition">
+            {/* CORREÇÃO: ArrowRight está importado agora */}
+            <ArrowRight className="w-5 h-5 mr-2 rotate-180" />
+            Voltar ao catálogo
+          </Link>
+          
+          <h1 className="text-xl font-bold">Configurações</h1>
+          
+          <Settings className="w-6 h-6" /> 
         </div>
       </header>
 
-      {/* Conteúdo Principal da Tela */}
-      <main className="max-w-3xl mx-auto p-4 sm:p-6 lg:p-8">
-        
-        {/* Seção de Notificações */}
-        <section className="bg-white p-6 sm:p-8 rounded-xl shadow-lg mb-6">
-          <div className="mb-4">
-            <h2 className="text-xl font-semibold text-gray-800 flex items-center space-x-2">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
-              <span>Notificações</span>
-            </h2>
-            <p className="text-sm text-gray-500 mt-1">Gerencie como você recebe atualizações.</p>
-          </div>
+      <main className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
 
-          <ToggleSwitch
+        {/* 1. Seção GERAL (Tema e Idioma) */}
+        <SettingsSection title="Geral" icon={<Languages className="w-6 h-6" />}>
+           
+            <DropdownOption 
+                label="Tema da Interface"
+                options={temas}
+                selected={selectedTheme}
+                onSelect={setSelectedTheme}
+            />
+
+            <DropdownOption 
+                label="Idioma"
+                options={idiomas}
+                selected={selectedLanguage}
+                onSelect={setSelectedLanguage}
+            />
+        </SettingsSection>
+
+        {/* 2. Seção SEGURANÇA */}
+        <SettingsSection title="Segurança e Conta" icon={<Lock className="w-6 h-6" />}>
+            <ToggleOption
+                id="bioAuth"
+                label="Autenticação Biométrica"
+                description="Use digital ou face ID para acessar o app."
+                checked={bioAuthEnabled}
+                onChange={setBioAuthEnabled}
+            />
+            <ActionOption
+                label="Mudar Senha"
+                icon={<Shield className="w-6 h-6" />}
+                onClick={() => alert("Redirecionando para mudança de senha...")}
+            />
+            <ActionOption
+                label="Desconectar"
+                icon={<AlertTriangle className="w-6 h-6 text-red-500" />}
+                onClick={logout}
+                color="text-red-500"
+            />
+        </SettingsSection>
+        
+        {/* 3. Seção NOTIFICAÇÕES */}
+        <SettingsSection title="Notificações" icon={<Bell className="w-6 h-6" />}>
+          <ToggleOption
+            id="push"
             label="Notificações push"
             description="Receba notificações no aplicativo"
-            checked={settings.notificacoesPush}
-            onChange={() => handleToggle('notificacoesPush')}
+            checked={pushEnabled}
+            onChange={setPushEnabled}
           />
-          <ToggleSwitch
+          <ToggleOption
+            id="email"
             label="Alertas por e-mail"
             description="Receba atualizações por e-mail"
-            checked={settings.alertasEmail}
-            onChange={() => handleToggle('alertasEmail')}
+            checked={emailEnabled}
+            onChange={setEmailEnabled}
           />
-        </section>
+        </SettingsSection>
 
-        {/* Seção de Acessibilidade */}
-        <section className="bg-white p-6 sm:p-8 rounded-xl shadow-lg mb-6">
-          <div className="mb-4">
-            <h2 className="text-xl font-semibold text-gray-800 flex items-center space-x-2">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c-2 3.5-4.5 5.5-4.5 5.5s2.5 0 5-2.5 3.5-6 3.5-6V3m-4 15h4m-4 4h4" /></svg>
-              <span>Acessibilidade</span>
-            </h2>
-            <p className="text-sm text-gray-500 mt-1">Personalize a experiência visual e de navegação.</p>
-          </div>
-
-          <ToggleSwitch
+        {/* 4. Seção ACESSIBILIDADE */}
+        {/* CORREÇÃO: Usando Accessibility no lugar de Wheelchair */}
+        <SettingsSection title="Acessibilidade" icon={<Accessibility className="w-6 h-6" />}>
+          
+          <ToggleOption
+            id="contrast"
             label="Alto contraste"
             description="Melhora a visibilidade do conteúdo"
-            checked={settings.altoContraste}
-            onChange={() => handleToggle('altoContraste')}
+            checked={contrastEnabled}
+            onChange={setContrastEnabled}
           />
-          <ToggleSwitch
+          <ToggleOption
+            id="largeText"
             label="Texto grande"
             description="Aumenta o tamanho do texto"
-            checked={settings.textoGrande}
-            onChange={() => handleToggle('textoGrande')}
+            checked={largeTextEnabled}
+            onChange={setLargeTextEnabled}
           />
-          <ToggleSwitch
+          <ToggleOption
+            id="reader"
             label="Leitor de tela"
             description="Otimizado para leitores de tela"
-            checked={settings.leitorTela}
-            onChange={() => handleToggle('leitorTela')}
+            checked={readerEnabled}
+            onChange={setReaderEnabled}
           />
-
+          
           {/* Slider de Tamanho da Fonte */}
-          <div className="pt-4 mt-2">
-            <label htmlFor="fontSizeSlider" className="text-gray-800 font-medium mb-3 block">
-              Tamanho da fonte
-            </label>
+          <div className="py-3">
+            <h3 className="font-semibold text-gray-800 mb-2">Tamanho da fonte</h3>
             <div className="flex items-center space-x-3">
-              <span className="text-base font-bold text-gray-600">A</span>
+              <span className="text-sm text-gray-500">A</span>
               <input
-                id="fontSizeSlider"
                 type="range"
                 min="0"
                 max="100"
-                value={settings.tamanhoFonte}
-                onChange={handleFontSizeChange}
-                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg accent-blue-600"
+                value={fontSize}
+                onChange={(e) => setFontSize(parseInt(e.target.value))}
+                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg accent-indigo-600"
               />
-              <span className="text-xl font-bold text-gray-600">A</span>
+              <span className="text-xl font-bold text-gray-500">A</span>
             </div>
           </div>
-        </section>
 
-        {/* Botão de Salvar */}
-        <div className="flex justify-end mt-6">
-          <button
-            onClick={handleSaveSettings}
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold shadow-md hover:bg-blue-700 transition"
-          >
-            Salvar Configurações
-          </button>
-        </div>
+        </SettingsSection>
+
+        {/* 5. Seção DADOS E ARMAZENAMENTO */}
+        <SettingsSection title="Dados e Armazenamento" icon={<Database className="w-6 h-6" />}>
+            <ActionOption
+                label="Limpar Cache"
+                icon={<Trash2 className="w-6 h-6" />}
+                onClick={clearCache}
+            />
+            <div className="py-3 border-b last:border-b-0">
+                <h3 className="font-semibold text-gray-800">Uso de Dados</h3>
+                <p className="text-sm text-gray-500 mt-0.5">32 MB de dados armazenados localmente.</p>
+            </div>
+        </SettingsSection>
+
+        {/* 6. Seção SOBRE */}
+        <SettingsSection title="Sobre o Aplicativo" icon={<Info className="w-6 h-6" />}>
+            <div className="py-3 border-b last:border-b-0">
+                <h3 className="font-semibold text-gray-800">Versão</h3>
+                <p className="text-sm text-gray-500 mt-0.5">AcessiAp v1.0.2</p>
+            </div>
+            <ActionOption
+                label="Termos de Serviço"
+                icon={<AlertTriangle className="w-6 h-6" />}
+                onClick={() => alert("Redirecionando para Termos...")}
+            />
+            <ActionOption
+                label="Política de Privacidade"
+                icon={<Shield className="w-6 h-6" />}
+                onClick={() => alert("Redirecionando para Política de Privacidade...")}
+            />
+        </SettingsSection>
+
 
       </main>
     </div>
   );
-};
-
-export default SettingsScreen;
+}
