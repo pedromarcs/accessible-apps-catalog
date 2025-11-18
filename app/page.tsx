@@ -147,7 +147,7 @@ export default function HomePage() {
 
         {/* 2. Busca e Nav */}
         <section className="bg-white p-4 rounded-xl shadow-md border flex items-center justify-between">
-          <div className="flex items-center bg-gray-100 p-2 rounded-full flex-grow mr-8">
+          <div className="flex items-center bg-gray-100 p-2 rounded-full grow mr-8">
             <Search className="w-5 h-5 text-gray-500 ml-2" />
             <input
               type="text"
