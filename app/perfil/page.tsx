@@ -19,9 +19,9 @@ const mockProfileData: ProfileData = {
   email: "ManoelGomes@gmail.com",
   sobreMim: "Buscando apps acessíveis para melhorar minha experiência digital.",
   membroDesde: "Outubro 2025",
-  appsFavoritos: 12,
-  avaliacoes: 8,
-  comentarios: 5,
+  appsFavoritos: 0,
+  avaliacoes: 0,
+  comentarios: 0,
 };
 
 // Componente para exibir estatísticas do usuário
