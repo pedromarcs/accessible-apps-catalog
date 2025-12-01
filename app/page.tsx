@@ -1,307 +1,161 @@
+"use client";
 
-import { link } from 'fs';
-import { ArrowRight, Search, User, Heart, Settings } from 'lucide-react';
+import React from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation'; // Adicionado para navegação programática
+import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
+import { FcGoogle } from 'react-icons/fc';
+import { FaFacebook } from 'react-icons/fa';
 
-// --- Dados Mockados para Simular o Conteúdo ---
-
-const navItems = [
-  { name: 'Perfil', icon: User, href: '/perfil' },
-  { name: 'Favoritos', icon: Heart, href: '/favoritos' },
-  { name: 'Configurações', icon: Settings, href: '/configuracoes'},
-];
-
-const categorias = [
-  { name: 'Aprender', icon: '🧠', href: '#' },
-  { name: 'Jogos', icon: '🎮', href: '#' },
-  { name: 'Educação', icon: '🎓', href: '#' },
-  { name: 'Comunicação', icon: '💻', href: '#' },
-  { name: 'Leitura', icon: '📖', href: '#' },
-  { name: 'Desenhar', icon: '🎨', href: '#' },
-  { name: 'Música', icon: '🎵', href: '#' },
-];
-
-const appsPopulares = [
-  { name: 'Khan Academy', icon: 'khan.png' }, 
-  { name: 'Matematica Simples', icon: 'matematica.png' },
-  { name: 'Estuda.com', icon: 'estuda.png' },
-  { name: 'Color by Number', icon: 'color.png' },
-  { name: 'Jogo da memória', icon: 'memoria.png' },
-];
-
-const appsNovos = [
-  { name: 'Color Blind Pal', icon: 'colorblind.png' },
-  { name: 'Seeing AI', icon: 'seing.png' },
-  { name: 'Zotero', icon: 'zotero.png' },
-  { name: 'Instapaper', icon: 'insta.png' },
-  { name: 'Project Gutenberg', icon: 'project.png' },
-];
-
-// --- Componentes Reutilizáveis ---
-
-// Componente Card
-const ItemCard = ({
-  name,
-  icon,
-  href,
-  isCategory = false
-}: {
-  name: string;
-  icon: any;
-  href: string;
-  isCategory?: boolean;
-}) => (
-  // Usando 'href' para o link
-  <a
-    href={href}
-    className={`flex flex-col items-center justify-center p-4 rounded-xl transition duration-200
-               ${isCategory ? "bg-indigo-700/50 hover:bg-indigo-700/70" : "hover:bg-gray-100"}
-               ${isCategory ? "text-white" : "text-gray-800"}`}
-  >
-    <div className={`text-4xl mb-1 ${isCategory ? "text-white" : "text-indigo-600"}`}>
-      {isCategory ? icon : (
-        <img
-          // Ajustado para garantir que o path da imagem esteja correto
-          src={`/images/${icon}`} 
-          alt={name}
-          className="w-12 h-12 rounded-lg object-cover"
-        />
-      )}
-    </div>
-    <span
-      className={`text-sm font-medium text-center ${
-        isCategory ? "text-white" : "text-gray-600"
-      }`}
-    >
-      {name}
-    </span>
-  </a>
-);
-
-// Seção (Populares / Novos)
-const AppSection = ({
-  title,
-  apps
-}: {
-  title: string;
-  apps: typeof appsPopulares;
-}) => (
-  <section className="bg-white p-6 rounded-2xl shadow-lg mt-8 border border-gray-200">
-    <div className="flex justify-between items-center mb-4">
-      <h2 className="text-2xl font-bold text-gray-800 flex items-center">
-        <ArrowRight className="w-5 h-5 mr-2 text-indigo-600 rotate-180" />
-        {title}
-      </h2>
-      <a href="#" className="text-indigo-600 font-semibold hover:text-indigo-700 flex items-center">
-        Ver Todos
-        <ArrowRight className="w-4 h-4 ml-1" />
-      </a>
-    </div>
-
-    <div className="grid grid-cols-5 gap-4">
-      {apps.map((app) => {
-        // --- LÓGICA DE REDIRECIONAMENTO ---
-        // Se o nome for "Khan Academy", usa a rota específica, senão, usa a rota genérica.
-        const appHref =
-  app.name === 'Khan Academy'
-    ? '/khan-academy'
-    : app.name === 'Color Blind Pal'
-    ? '/color-blind'
-    : app.name === 'Seeing AI'
-    ? '/seeing'
+// Componente de Reutilização para os Campos de Input
+const InputWithIcon = ({ Icon, type, placeholder, name, actionIcon, onActionClick }: any) => (
+  <div className="relative mt-1">
+    {/* Ícone principal (e-mail ou senha) */}
+    <Icon className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
     
-    : `/app/${app.name.toLowerCase().replace(/\s/g, "-")}`;
-
-        return (
-          <ItemCard
-            key={app.name}
-            name={app.name}
-            icon={app.icon}
-            href={appHref} // Usa a rota definida
-          />
-        );
-      })}
-    </div>
-  </section>
+    {/* Campo de Input */}
+    <input
+      type={type}
+      placeholder={placeholder}
+      name={name}
+      className="w-full pl-12 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition shadow-sm placeholder-gray-500"
+    />
+    
+    {/* Botão para Ação (como mostrar/ocultar senha) */}
+    {actionIcon && (
+      <button 
+        type="button" 
+        onClick={onActionClick} 
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 p-1 text-gray-500 hover:text-indigo-600 transition"
+        aria-label={type === 'password' ? 'Mostrar senha' : 'Ocultar senha'}
+      >
+        {actionIcon}
+      </button>
+    )}
+  </div>
 );
 
-// --- Componente Principal ---
+// Componente principal da Página de Login (Rota: /)
+export default function LoginPage() {
+  
+  // Inicializa o hook de roteamento do Next.js
+  const router = useRouter(); 
+  
+  const [showPassword, setShowPassword] = React.useState(false);
 
-export default function HomePage() {
+  // Alterna a visibilidade da senha
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+  
+  // FUNÇÃO DE NAVEGAÇÃO
+  // Esta função é chamada ao submeter o formulário
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Nesta linha, simulamos o login e redirecionamos para o catálogo.
+    // Futuramente, aqui será adicionada a lógica de autenticação (Firebase, etc.).
+    router.push('/catalogo');
+  };
+  
   return (
-    <div className="bg-gray-50 min-h-screen">
+    // Fundo azul da tela
+    <div className="min-h-screen flex items-center justify-center bg-indigo-600 p-4">
+      
+      {/* Container principal do formulário (Card) */}
+      <div className="bg-white p-8 sm:p-10 rounded-3xl shadow-2xl w-full max-w-md text-center">
+        
+        {/* Título e Subtítulo */}
+        <h1 className="text-3xl font-bold text-gray-800 mb-2">
+          Entrar
+        </h1>
+        <p className="text-gray-500 mb-6">
+          Acesse sua conta para explorar apps acessíveis
+        </p>
 
-      {/* 1. Navbar */}
-      <header className="bg-indigo-600 text-white shadow-lg">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center">
-            <a
-              href="/login"
-              className="bg-white/20 hover:bg-white/30 text-white font-semibold py-1 px-4 rounded-full text-sm mr-6"
-            >
-              Login
-            </a>
-
-            <span className="text-xl font-extrabold">AcessiAp</span>
-          </div>
+        {/* --- Opções de Login Social --- */}
+        <div className="space-y-3 mb-6">
+          
+          {/* Entrar com Google */}
+          <button type="button" className="w-full flex items-center justify-center space-x-2 border border-gray-300 py-3 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition duration-150">
+            <FcGoogle className="w-6 h-6" />
+            <span>Entrar com o Google</span>
+          </button>
+          
+          {/* Entrar com Facebook */}
+          <button type="button" className="w-full flex items-center justify-center space-x-2 border border-gray-300 py-3 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition duration-150">
+            <FaFacebook className="w-6 h-6 text-blue-600" />
+            <span>Entrar com o Facebook</span>
+          </button>
         </div>
-      </header>
 
-      {/* CONTEÚDO */}
-      <div className="max-w-7xl mx-auto px-6 pt-6 pb-12">
+        {/* Divisor "OU ENTRE COM E-MAIL" */}
+        <div className="flex items-center my-6">
+          <div className="grow border-t border-gray-300"></div> 
+          <span className="shrink mx-4 text-gray-500 text-sm">OU ENTRE COM E-MAIL</span> 
+          <div className="grow border-t border-gray-300"></div> 
+        </div>
 
-        {/* 2. Busca e Nav */}
-        <section className="bg-white p-4 rounded-xl shadow-md border flex items-center justify-between">
-          <div className="flex items-center bg-gray-100 p-2 rounded-full grow mr-8">
-            <Search className="w-5 h-5 text-gray-500 ml-2" />
-            <input
-              type="text"
-              placeholder="Pesquisar Apps, categorias..."
-              className="bg-transparent text-black p-2 w-full focus:outline-none"
+        {/* --- Formulário de Login --- */}
+        {/* ADICIONADO: onSubmit que chama handleLogin, que faz o redirecionamento */}
+        <form className="space-y-4" onSubmit={handleLogin}> 
+          
+          {/* E-mail */}
+          <div className="text-left">
+            <label htmlFor="email" className="flex text-sm font-medium text-gray-700 mb-1 justify-between">
+              <span>E-mail:</span>
+            </label>
+            <InputWithIcon
+              Icon={Mail}
+              type="email"
+              placeholder="Seuemail@exemplo.com"
+              name="email"
             />
           </div>
-          <nav className="flex space-x-6 text-gray-700">
-            {navItems.map((item) => {
-              const IconComponent = item.icon;
-              return (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="flex flex-col items-center hover:text-indigo-600"
-                >
-                  <IconComponent className="w-6 h-6" />
-                  <span className="text-xs">{item.name}</span>
-                </a>
-              );
-            })}
-          </nav>
-        </section>
 
-        {/* 3. Categorias */}
-        <section className="bg-indigo-600 p-6 rounded-2xl shadow-xl mt-8">
-          <h2 className="text-lg font-semibold text-white mb-4">Categorias</h2>
-
-          <div className="grid grid-cols-7 gap-4">
-            {categorias.map((cat) => (
-              <ItemCard key={cat.name} name={cat.name} icon={cat.icon} href="#" isCategory />
-            ))}
-          </div>
-        </section>
-
-        {/* 4. Populares */}
-        <AppSection title="Populares" apps={appsPopulares} />
-
-        {/* 5. Novos */}
-        <AppSection title="Novos" apps={appsNovos} />
-
-
-        {/* 6. NOVA ABA: Avaliação + Contato */}
-        <section className="grid grid-cols-2 gap-6 mt-12">
-
-          {/* AVALIE NOSSO SITE */}
-          <div className="bg-[#1f1f1f] rounded-3xl p-8 shadow-xl text-white">
-            <h2 className="text-2xl font-bold mb-4">Avalie Nosso Site</h2>
-            <p className="text-gray-300 mb-6">
-              Seu feedback é usado para melhorar o AcessiAp 🔍
-            </p>
-
-            <div className="flex justify-between text-center">
-              <div>
-                <span className="text-4xl">😕</span>
-                <p className="text-sm mt-2">precisa melhorar</p>
-              </div>
-              <div>
-                <span className="text-4xl">🙂</span>
-                <p className="text-sm mt-2">bom</p>
-              </div>
-              <div>
-                <span className="text-4xl">😄</span>
-                <p className="text-sm mt-2">ótimo</p>
-              </div>
-              <div>
-                <span className="text-4xl">🤩</span>
-                <p className="text-sm mt-2">sensacional</p>
-              </div>
-            </div>
+          {/* Senha */}
+          <div className="text-left">
+            <label htmlFor="password" className="flex text-sm font-medium text-gray-700 mb-1 justify-between">
+              <span>Senha:</span>
+              <Link href="/recuperar-senha" className="text-indigo-600 text-xs font-normal hover:underline">Esqueceu?</Link>
+            </label>
+            <InputWithIcon
+              Icon={Lock}
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Digite sua senha"
+              name="password"
+              actionIcon={showPassword ? <EyeOff /> : <Eye />}
+              onActionClick={togglePasswordVisibility}
+            />
           </div>
 
-          {/* CONTATO */}
-          <div className="bg-[#1f1f1f] rounded-3xl p-8 shadow-xl text-white">
-            <h2 className="text-2xl font-bold text-center mb-6">
-              Se Expresse Melhor Entrando Em Contato Conosco
-            </h2>
+          {/* Botão Entrar */}
+          <button
+            // type="submit" garante que o formulário chama o onSubmit
+            type="submit"
+            className="w-full bg-indigo-600 text-white font-semibold py-3 mt-4 rounded-lg hover:bg-indigo-700 transition duration-150 shadow-md"
+          >
+            Entrar
+          </button>
+        </form>
 
-            <div className="space-y-4">
-
-              <div className="bg-gray-700 p-3 rounded-full flex items-center space-x-3">
-                <img src="gmail.png" className="w-7" />
-                <span className="text-sm">AcessiAp@Gmail.com</span>
-              </div>
-
-              <div className="bg-gray-700 p-3 rounded-full flex items-center space-x-3">
-                <img src="whats.png" className="w-7" />
-                <span className="text-sm">81 9999-9999</span>
-              </div>
-            </div>
-
-            <div className="text-center mt-8">
-              <img src="acessi.png" className="mx-auto w-16 opacity-80" />
-              <p className="mt-2 text-sm text-gray-300">AcessiAp</p>
-            </div>
-          </div>
-
-        </section>
-        {/* 7. FAVORITOS — MESMO ESTILO DAS OUTRAS SEÇÕES */}
-<section className="bg-white p-6 rounded-2xl shadow-lg mt-8 border border-gray-200">
-  <div className="flex justify-between items-center mb-4">
-    <h2 className="text-2xl font-bold text-gray-800 flex items-center">
-      <ArrowRight className="w-5 h-5 mr-2 text-indigo-600 rotate-180" />
-      Favoritos
-    </h2>
-
-    <a href="#" className="text-indigo-600 font-semibold hover:text-indigo-700 flex items-center">
-      Ver Todos
-      <ArrowRight className="w-4 h-4 ml-1" />
-    </a>
-  </div>
-
-  <div className="grid grid-cols-5 gap-4">
-
-    {/* Item 1 */}
-    <a href="/khan-academy" className="flex flex-col items-center hover:bg-gray-100 p-4 rounded-xl transition">
-      <img src="/images/khan.png" className="w-14 h-14 rounded-lg object-cover mb-2" />
-      <span className="text-sm text-gray-700 font-medium text-center">Khan Academy</span>
-    </a>
-
-    {/* Item 2 */}
-    <a className="flex flex-col items-center hover:bg-gray-100 p-4 rounded-xl transition">
-      <img src="/images/insta.png" className="w-14 h-14 rounded-lg object-cover mb-2" />
-      <span className="text-sm text-gray-700 font-medium text-center">Instapaper</span>
-    </a>
-
-    {/* Item 3 */}
-    <a href="/color-blind" className="flex flex-col items-center hover:bg-gray-100 p-4 rounded-xl transition">
-      <img src="/images/color.png" className="w-14 h-14 rounded-lg object-cover mb-2" />
-      <span className="text-sm text-gray-700 font-medium text-center">Color by Number</span>
-    </a>
-
-    {/* Item 4 */}
-    <a className="flex flex-col items-center hover:bg-gray-100 p-4 rounded-xl transition">
-      <img src="/images/estuda.png" className="w-14 h-14 rounded-lg object-cover mb-2" />
-      <span className="text-sm text-gray-700 font-medium text-center">Estuda.com</span>
-    </a>
-
-    {/* Botão Adicionar */}
-    <button className="flex flex-col items-center hover:bg-gray-100 p-4 rounded-xl transition">
-      <div className="w-14 h-14 rounded-full border-4 border-gray-700 flex items-center justify-center">
-        <span className="text-3xl font-bold text-gray-700">+</span>
-      </div>
-      <span className="text-sm text-gray-700 font-medium mt-2 text-center">Adicionar</span>
-    </button>
-
-  </div>
-</section>
-
+        {/* Link de Cadastro e Termos */}
+        <div className="mt-8 text-sm">
+          <p className="text-gray-600">
+            Não tem uma conta? 
+            <Link href="/cadastro" className="text-indigo-600 font-semibold hover:underline ml-1">
+              Cadastre-se gratuitamente
+            </Link>
+          </p>
+          <p className="mt-3 text-xs text-gray-400">
+            Ao entrar, você concorda com nossos 
+            <Link href="/termos" className="text-indigo-600 hover:underline mx-1">Termos de Uso</Link> 
+            e 
+            <Link href="/politica-de-privacidade" className="text-indigo-600 hover:underline ml-1">Política de Privacidade</Link>
+          </p>
+        </div>
 
       </div>
     </div>
-  );}
+  );
+}
