@@ -28,7 +28,7 @@ export default function KhanAcademyPage() {
       <header className="bg-white shadow-md border-b border-gray-100 sticky top-0 z-10">
         <div className="max-w-6xl mx-auto px-6 py-4 flex justify-start items-center">
           <a 
-            href="/" 
+            href="/catalogo" 
             className="flex items-center text-indigo-600 font-semibold hover:text-indigo-800 transition duration-200 p-2 rounded-lg hover:bg-gray-100"
           >
             <ArrowLeft className="w-5 h-5 mr-2" />

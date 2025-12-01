@@ -60,7 +60,7 @@ const ColorBlindPalPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50 p-6 sm:p-10">
       {/* Cabeçalho de Navegação (Voltar) */}
-      <a href="#" className="flex items-center text-blue-600 font-medium mb-8 hover:text-blue-700">
+      <a href="/catalogo" className="flex items-center text-blue-600 font-medium mb-8 hover:text-blue-700">
         <span className="text-xl mr-2">←</span> Voltar ao catálogo
       </a>
 

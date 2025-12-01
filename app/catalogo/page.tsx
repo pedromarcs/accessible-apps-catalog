@@ -108,6 +108,8 @@ const AppSection = ({
     ? '/color-blind'
     : app.name === 'Seeing AI'
     ? '/seeing'
+    : app.name === 'Zotero'
+    ? '/zotero'
     
     : `/app/${app.name.toLowerCase().replace(/\s/g, "-")}`;
 
