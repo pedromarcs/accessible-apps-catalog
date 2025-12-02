@@ -51,8 +51,7 @@ export default function RegisterPage() {
     e.preventDefault();
     
     if (!termsAccepted) {
-      alert("Por favor, aceite os Termos e Condições para continuar."); // Mantenho alert() por ser um placeholder temporário
-      return;
+      alert("Por favor, aceite os Termos e Condições para continuar.");
     }
     
     // Simulação de lógica de cadastro. Redireciona para a tela de Login

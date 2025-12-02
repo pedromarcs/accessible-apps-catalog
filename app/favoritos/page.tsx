@@ -1,7 +1,5 @@
 import React from "react";
-
-// Tela refeita para ficar o mais fiel possível à imagem enviada
-// Next.js + TailwindCSS
+import Link from "next/link";
 
 export default function FavoritesScreen() {
   return (
@@ -10,23 +8,23 @@ export default function FavoritesScreen() {
       <header className="w-full bg-[#1e6df8] text-white shadow-md">
         <div className="max-w-6xl mx-auto px-6 py-6 flex flex-col gap-5 relative">
           {/* Back button */}
-          <button className="flex items-center gap-3 text-white/95 hover:opacity-90 w-fit">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-5 h-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-            <span className="text-sm">Voltar ao catálogo</span>
-          </button>
+            <Link href="/catalogo" className="flex items-center gap-3 text-white/95 hover:opacity-90 w-fit">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+            <span className="text-sm">Voltar ao catálogo</span>
+          </Link>
 
           {/* Title */}
           <div className="pl-1 mt-1">

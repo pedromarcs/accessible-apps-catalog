@@ -117,7 +117,7 @@ export default function LoginPage() {
           <div className="text-left">
             <label htmlFor="password" className="flex text-sm font-medium text-gray-700 mb-1 justify-between">
               <span>Senha:</span>
-              <Link href="/recuperar-senha" className="text-indigo-600 text-xs font-normal hover:underline">Esqueceu?</Link>
+              <Link href="/esqueci-senha" className="text-indigo-600 text-xs font-normal hover:underline">Esqueceu a senha?</Link>
             </label>
             <InputWithIcon
               Icon={Lock}

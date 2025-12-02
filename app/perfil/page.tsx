@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useCallback } from 'react';
-import Link from 'next/link'; // 1. IMPORTADO: Importação do Link
+import Link from 'next/link';
 
 // Interface de dados para o perfil do usuário
 interface ProfileData {
@@ -123,8 +123,7 @@ const App: React.FC = () => {
       {/* Cabeçalho */}
       <header className="bg-blue-600 shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-start items-center text-white">
-          {/* 2. CORREÇÃO: Usando Link do Next.js e href="/" */}
-          <Link href="/" className="flex items-center space-x-2 text-sm md:text-base hover:text-blue-200 transition">
+          <Link href="/catalogo" className="flex items-center space-x-2 text-sm md:text-base hover:text-blue-200 transition">
             {/* 3. ÍCONE DE VOLTA: Mantido seu SVG original */}
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
             <span>Voltar ao catálogo</span>

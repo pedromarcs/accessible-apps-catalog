@@ -128,7 +128,7 @@ export default function ConfiguracoesPage() {
         <div className="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
           
           {/* Botão de Voltar Funcional */}
-          <Link href="/" className="flex items-center text-sm font-medium hover:text-indigo-200 transition">
+          <Link href="/catalogo" className="flex items-center text-sm font-medium hover:text-indigo-200 transition">
             {/* CORREÇÃO: ArrowRight está importado agora */}
             <ArrowRight className="w-5 h-5 mr-2 rotate-180" />
             Voltar ao catálogo
@@ -201,7 +201,6 @@ export default function ConfiguracoesPage() {
         </SettingsSection>
 
         {/* 4. Seção ACESSIBILIDADE */}
-        {/* CORREÇÃO: Usando Accessibility no lugar de Wheelchair */}
         <SettingsSection title="Acessibilidade" icon={<Accessibility className="w-6 h-6" />}>
           
           <ToggleOption
