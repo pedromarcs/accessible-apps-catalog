@@ -15,7 +15,7 @@ const RatingBar: React.FC<{ rating: number; count: number }> = ({ rating, count 
   const barWidth = (count / 10) * 100;
   
   return (
-    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
+    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '6px' }}>
       <span style={{ width: '10px', fontSize: '14px', color: '#000000ff', marginRight: '10px' }}>{rating}</span>
       <div style={{ flexGrow: 1, height: '8px', backgroundColor: '#e9ecef', borderRadius: '4px', overflow: 'hidden', marginRight: '10px' }}>
         <div 
@@ -77,14 +77,14 @@ const ZoteroAppDetails: React.FC = () => {
       
       {/* --- Cabeçalho e Título --- */}
       <div style={{ padding: '10px 0', borderBottom: '1px solid #eee', marginBottom: '20px'}}>
-        <span style={{ color: '#007bff', cursor: 'pointer', fontSize: '16px', fontWeight: 'bold' }}>
-          ← Voltar ao catálogo
-        </span>
+       <a href="/catalogo" className="flex items-center text-blue-600 font-medium mb-8 hover:text-blue-700">
+        <span className="text-xl mr-2">←</span> Voltar ao catálogo
+      </a>
       </div>
 
       <div style={infoHeaderStyle}>
         <div style={{ width: '80px', height: '80px', marginRight: '20px', borderRadius: '15px', overflow: 'hidden', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', backgroundColor: '#e53935', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <span style={{ fontSize: '40px', fontWeight: 'bold', color: 'white' }}>Z</span> 
+          <span style={{ fontSize: '40px', fontWeight: 'bold', color: 'white' }}>z</span> 
         </div>
         <div>
           <h1 style={{ margin: '0', fontSize: '28px', fontWeight: 600, color:'black' }}>Zotero</h1>
@@ -138,7 +138,7 @@ const ZoteroAppDetails: React.FC = () => {
           
           {/* BOX DE INFORMAÇÕES */}
           <div style={boxStyle}>
-            <h3 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '15px', borderBottom: '1px solid #eee', paddingBottom: '10px' }}>Informações</h3>
+            <h3 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '15px', borderBottom: '1px solid #eee', paddingBottom: '10px', color:'black' }}>Informações</h3>
             
             {[
                 { label: 'Downloads', value: '+100 Mil' },

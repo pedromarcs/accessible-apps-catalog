@@ -110,6 +110,10 @@ const AppSection = ({
     ? '/seeing'
     : app.name === 'Zotero'
     ? '/zotero'
+    : app.name === 'Instapaper'
+    ? '/instapaper'
+    : app.name === 'Estuda.com'
+    ? '/estuda'
     
     : `/app/${app.name.toLowerCase().replace(/\s/g, "-")}`;
 
