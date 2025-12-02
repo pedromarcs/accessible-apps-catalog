@@ -114,6 +114,10 @@ const AppSection = ({
     ? '/instapaper'
     : app.name === 'Estuda.com'
     ? '/estuda'
+    : app.name === 'Project Gutenberg'
+    ? '/project'
+    : app.name === 'Color by Number'
+    ? '/color-by'
     
     : `/app/${app.name.toLowerCase().replace(/\s/g, "-")}`;
 
@@ -279,19 +283,19 @@ export default function HomePage() {
     </a>
 
     {/* Item 2 */}
-    <a className="flex flex-col items-center hover:bg-gray-100 p-4 rounded-xl transition">
+    <a href="/instapaper" className="flex flex-col items-center hover:bg-gray-100 p-4 rounded-xl transition">
       <img src="/images/insta.png" className="w-14 h-14 rounded-lg object-cover mb-2" />
       <span className="text-sm text-gray-700 font-medium text-center">Instapaper</span>
     </a>
 
     {/* Item 3 */}
-    <a href="/color-blind" className="flex flex-col items-center hover:bg-gray-100 p-4 rounded-xl transition">
+    <a href="/color-by" className="flex flex-col items-center hover:bg-gray-100 p-4 rounded-xl transition">
       <img src="/images/color.png" className="w-14 h-14 rounded-lg object-cover mb-2" />
       <span className="text-sm text-gray-700 font-medium text-center">Color by Number</span>
     </a>
 
     {/* Item 4 */}
-    <a className="flex flex-col items-center hover:bg-gray-100 p-4 rounded-xl transition">
+    <a href="/estuda" className="flex flex-col items-center hover:bg-gray-100 p-4 rounded-xl transition">
       <img src="/images/estuda.png" className="w-14 h-14 rounded-lg object-cover mb-2" />
       <span className="text-sm text-gray-700 font-medium text-center">Estuda.com</span>
     </a>

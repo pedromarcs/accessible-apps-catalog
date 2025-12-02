@@ -38,7 +38,7 @@ const InstapaperAppDetails: React.FC = () => {
 
   const containerStyle: React.CSSProperties = {
     fontFamily: 'Arial, sans-serif',
-    maxWidth: '1200px', // Mantendo o tamanho original para replicar a imagem fielmente
+    maxWidth: '1600px', // Mantendo o tamanho original para replicar a imagem fielmente
     margin: '0 auto',
     padding: '20px 40px',
     backgroundColor: '#f8f9fa',
