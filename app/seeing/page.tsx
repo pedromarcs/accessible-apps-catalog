@@ -38,7 +38,7 @@ const APP_DATA = {
   } as AppDetails,
 };
 
-// Componente para exibir um item de recurso (feature)
+// Componentes
 const FeatureItem: React.FC<AppFeature> = ({ title, description }) => (
   <li className="mt-3">
     <span className="font-bold text-gray-800">{title}</span>{" "}
@@ -46,7 +46,6 @@ const FeatureItem: React.FC<AppFeature> = ({ title, description }) => (
   </li>
 );
 
-// Componente para exibir um detalhe (informações)
 const DetailItem: React.FC<{ label: string, value: string }> = ({ label, value }) => (
   <div className="flex justify-between py-2 border-b border-gray-200 last:border-b-0">
     <span className="text-gray-600">{label}</span>
@@ -55,8 +54,6 @@ const DetailItem: React.FC<{ label: string, value: string }> = ({ label, value }
 );
 
 const ColorBlindPalPage: React.FC = () => {
-  // Nota: A seta 'Voltar ao catálogo' é geralmente um componente de navegação
-  // que estaria no 'layout' ou em um componente de cabeçalho.
   return (
     <div className="min-h-screen bg-gray-50 p-6 sm:p-10">
       {/* Cabeçalho de Navegação (Voltar) */}
@@ -64,19 +61,21 @@ const ColorBlindPalPage: React.FC = () => {
         <span className="text-xl mr-2">←</span> Voltar ao catálogo
       </a>
 
-      {/* Seção Principal - Header do Aplicativo */}
+      {/* Header do Aplicativo */}
       <header className="flex items-start border-b border-gray-200 pb-6 mb-6">
-        {/* Logo do Aplicativo (Simulado com um quadrado azul e um 'S') */}
-        <div className="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center mr-4">
-          <span className="text-white text-3xl font-extrabold">S</span>
-        </div>
-        
+
+        {/* IMAGEM seeing.png */}
+        <img
+          src="/seing.png"
+          alt="Logo Seeing AI"
+          className="w-16 h-16 rounded-lg object-contain mr-4 bg-white p-1"
+        />
+
         {/* Título e Avaliação */}
         <div>
           <h1 className="text-2xl font-bold text-gray-900">{APP_DATA.name}</h1>
           <p className="text-gray-600 text-sm">{APP_DATA.developer}</p>
-          
-          {/* Avaliação (Estrelas) */}
+
           <div className="flex items-center mt-1">
             <span className="text-yellow-500 mr-1">★</span>
             <span className="text-gray-800 text-sm font-medium">{APP_DATA.rating}</span>
@@ -85,19 +84,14 @@ const ColorBlindPalPage: React.FC = () => {
         </div>
       </header>
 
-      {/* Conteúdo Principal (Grid de duas colunas) */}
+      {/* Grid */}
       <main className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-        
-        {/* Coluna de Conteúdo (2/3 da largura) */}
-        <section className="lg:col-span-2">
-          
-          {/* Sobre este app */}
-          <h2 className="text-xl font-semibold text-gray-900 mb-3 border-b pb-2">Sobre este app</h2>
-          <p className="text-gray-700 leading-relaxed mb-6">
-            {APP_DATA.about}
-          </p>
 
-          {/* Principais características e funções */}
+        {/* Coluna do Conteúdo */}
+        <section className="lg:col-span-2">
+          <h2 className="text-xl font-semibold text-gray-900 mb-3 border-b pb-2">Sobre este app</h2>
+          <p className="text-gray-700 leading-relaxed mb-6">{APP_DATA.about}</p>
+
           <h2 className="text-xl font-semibold text-gray-900 mb-3 border-b pb-2">Principais características e funções</h2>
           <ul className="list-disc list-inside space-y-3">
             {APP_DATA.features.map((feature, index) => (
@@ -106,10 +100,9 @@ const ColorBlindPalPage: React.FC = () => {
           </ul>
         </section>
 
-        {/* Coluna de Informações (1/3 da largura) */}
+        {/* Coluna de Informações */}
         <aside className="lg:col-span-1 space-y-6">
-          
-          {/* Box de Informações */}
+
           <div className="bg-white p-6 rounded-lg shadow border border-gray-100">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Informações</h3>
             <div className="space-y-2">
@@ -119,8 +112,7 @@ const ColorBlindPalPage: React.FC = () => {
               <DetailItem label="Desenvolvedor" value={APP_DATA.details.developer} />
             </div>
           </div>
-          
-          {/* Botão Acessar Agora */}
+
           <div className="text-center p-6 bg-white rounded-lg shadow border border-gray-100">
             <button className="w-full py-3 bg-blue-600 text-white font-bold rounded-lg text-lg hover:bg-blue-700 transition duration-150 shadow-md">
               acessar agora
@@ -130,7 +122,6 @@ const ColorBlindPalPage: React.FC = () => {
             </p>
           </div>
 
-          {/* Gráfico de Avaliações */}
           <div className="bg-white p-6 rounded-lg shadow border border-gray-100">
             <div className="flex items-center mb-3">
               <span className="text-4xl text-yellow-500 mr-2">★</span>
@@ -139,14 +130,17 @@ const ColorBlindPalPage: React.FC = () => {
                 <span className="text-gray-500 text-sm ml-1">({APP_DATA.reviews})</span>
               </div>
             </div>
-            {/* Barras de Avaliação (Simulação) */}
-            {/* Nota: O código de barra é simplificado. Na vida real, usaria um componente de progresso. */}
+
             {[5, 4, 3, 2, 1].map((star) => (
               <div key={star} className="flex items-center text-sm py-1">
                 <span className="w-4 text-gray-600">{star}</span>
                 <div className="w-full bg-gray-200 rounded-full h-2 ml-2">
-                  <div 
-                    className={`h-2 rounded-full ${star === 5 ? 'bg-blue-600 w-[80%]' : star === 4 ? 'bg-blue-600 w-[60%]' : 'bg-blue-300 w-[10%]'}`}
+                  <div
+                    className={`h-2 rounded-full ${
+                      star === 5 ? 'bg-blue-600 w-[80%]' :
+                      star === 4 ? 'bg-blue-600 w-[60%]' :
+                      'bg-blue-300 w-[10%]'
+                    }`}
                   ></div>
                 </div>
               </div>

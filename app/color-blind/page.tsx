@@ -12,7 +12,7 @@ const appDetails = {
   size: "2,4 MB",
   version: "1.1.1",
   externalLink: "https://play.google.com/store/apps/details?id=com.colorblindpal", // Rota Externa: O link real para onde o botão "Acessar Agora" deve levar
-  iconPath: "/images/colorblind.png" // Garanta que esta imagem exista
+  iconPath: "/colorblind.png"// Garanta que esta imagem exista
 };
 
 // Dados para a barra de avaliação

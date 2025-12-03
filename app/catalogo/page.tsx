@@ -144,13 +144,7 @@ export default function HomePage() {
       <header className="bg-indigo-600 text-white shadow-lg">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <div className="flex items-center">
-            <a
-              href="/login"
-              className="bg-white/20 hover:bg-white/30 text-white font-semibold py-1 px-4 rounded-full text-sm mr-6"
-            >
-              Login
-            </a>
-
+            
             <span className="text-xl font-extrabold">AcessiAp</span>
           </div>
         </div>
