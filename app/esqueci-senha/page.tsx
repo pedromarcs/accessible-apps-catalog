@@ -12,7 +12,7 @@ export default function ForgotPasswordPage() {
     const [status, setStatus] = useState<RecoveryStatus>('input');
     const [errorMessage, setErrorMessage] = useState('');
 
-    // Simula o processo de envio de recuperação de senha
+    // Processo de envio de recuperação de senha
     const handleForgotPassword = useCallback((e: React.FormEvent) => {
         e.preventDefault();
         setErrorMessage('');
@@ -47,7 +47,7 @@ export default function ForgotPasswordPage() {
                             Verifique sua caixa de entrada e a pasta de spam. Um link de recuperação foi enviado para:
                             <span className="font-semibold text-blue-600 block mt-1">{email}</span>
                         </p>
-                        <Link href="/login" className="text-blue-500 font-medium hover:text-blue-700 transition">
+                        <Link href="/" className="text-blue-500 font-medium hover:text-blue-700 transition">
                             Voltar para o Login
                         </Link>
                     </div>
@@ -102,7 +102,7 @@ export default function ForgotPasswordPage() {
                         
                         {/* Link para Voltar */}
                         <div className="text-center pt-2">
-                            <Link href="/login" className="text-sm text-gray-500 hover:text-blue-600 transition">
+                            <Link href="/" className="text-sm text-gray-500 hover:text-blue-600 transition">
                                 Lembrei minha senha! Voltar para o Login
                             </Link>
                         </div>
