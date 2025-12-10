@@ -19,6 +19,11 @@ O site busca oferecer uma experiência simples, moderna e acessível a todos os 
 
 ---
 
+## 📽️ Projeto rodando no Vercel
+> Veja o Projeto Rodando no Vercel[click aqui](https://acessiap.vercel.app/).
+
+---
+
 ## ✅ Acompanhe o Progresso do Projeto
 
 > 🧭 **Progresso do Projeto:**  
